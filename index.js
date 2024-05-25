@@ -23,13 +23,18 @@ export default function TailwindBreakpointIndicatorPlugin({ addBase, theme }) {
       color: "light-dark(#567, #eee)",
       border: "1px solid light-dark(#9ab, #cde)",
     },
-    ...breakpoints.reduce((acc, current) => {
-      acc[`@media (min-width: ${screens[current]})`] = {
-        "body::after": {
-          content: `"${current}"`,
-        },
-      };
-      return acc;
-    }, {}),
   });
+  breakpoints
+    .sort(
+      (a, b) => +screens[a].replace("px", "") - +screens[b].replace("px", "")
+    )
+    .forEach((key) => {
+      addBase({
+        [`@media (min-width: ${screens[key]})`]: {
+          "body::after": {
+            content: `"${key}"`,
+          },
+        },
+      });
+    });
 }
