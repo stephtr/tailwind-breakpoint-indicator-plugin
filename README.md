@@ -14,11 +14,13 @@ npm install tailwind-breakpoint-indicator-plugin
 Just add the following to your `tailwind.config.js`:
 
 ```js
-module.exports = {
+import breakpointIndicator from 'tailwind-breakpoint-indicator-plugin';
+
+export default {
   // ...
   plugins: [
     // ...
-    require("tailwind-breakpoint-indicator-plugin"),
+    breakpointIndicator,
   ],
 };
 ```
