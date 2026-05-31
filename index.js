@@ -4,6 +4,31 @@ export default function TailwindBreakpointIndicatorPlugin({ addBase, theme }) {
   const screens = theme("screens", {});
   const breakpoints = Object.keys(screens);
 
+  const toMinWidth = (value) => {
+    if (typeof value === "string") return value;
+
+    if (Array.isArray(value)) {
+      for (const entry of value) {
+        const min = toMinWidth(entry);
+        if (min) return min;
+      }
+      return null;
+    }
+
+    if (value && typeof value === "object" && typeof value.min === "string") {
+      return value.min;
+    }
+
+    return null;
+  };
+
+  const resolvedBreakpoints = breakpoints
+    .map((key) => ({
+      key,
+      minWidth: toMinWidth(screens[key]),
+    }))
+    .filter((item) => item.minWidth);
+
   addBase({
     "body::after": {
       content: `"–"`,
@@ -24,13 +49,9 @@ export default function TailwindBreakpointIndicatorPlugin({ addBase, theme }) {
       border: "1px solid light-dark(#9ab, #cde)",
     },
   });
-  breakpoints
-    .sort(
-      (a, b) => +screens[a].replace("px", "") - +screens[b].replace("px", "")
-    )
-    .forEach((key) => {
+  resolvedBreakpoints.forEach(({ key, minWidth }) => {
       addBase({
-        [`@media (min-width: ${screens[key]})`]: {
+        [`@media (min-width: ${minWidth})`]: {
           "body::after": {
             content: `"${key}"`,
           },
