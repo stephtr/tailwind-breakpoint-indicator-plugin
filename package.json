@@ -1,6 +1,6 @@
 {
   "name": "tailwind-breakpoint-indicator-plugin",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A tailwind plugin displaying a small screen size indicator",
   "main": "index.js",
   "type": "module",
