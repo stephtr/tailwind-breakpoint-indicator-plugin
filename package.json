@@ -10,5 +10,9 @@
   ],
   "author": "Stephan Troyer",
   "repository": "github:stephtr/tailwind-breakpoint-indicator-plugin",
+  "homepage": "https://github.com/stephtr/tailwind-breakpoint-indicator-plugin#readme",
+  "bugs": {
+    "url": "https://github.com/stephtr/tailwind-breakpoint-indicator-plugin/issues"
+  },
   "license": "MIT"
 }
